@@ -1,8 +1,8 @@
-\<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Red Roses Bouquet with Infinite Petals Rain</title>
+<title>Gabe's html gift for piating</title>
 <style>
   html, body {
     margin: 0; padding: 0;
@@ -52,19 +52,71 @@
     opacity: 1;
     pointer-events: auto;
   }
-  
+
+  /* Envelope dialog with Yes/No */
+  #envelopeDialog {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffe1e9;
+    border-radius: 15px;
+    box-shadow: 0 0 20px #ffbad8;
+    padding: 24px 32px;
+    z-index: 150;
+    display: none;
+    text-align: center;
+    width: 300px;
+    user-select: none;
+  }
+  #envelopeDialog[aria-hidden="true"] {
+    display: none;
+  }
+  #envelopeTitle {
+    font-size: 1.5rem;
+    color: #d94a78;
+    font-weight: bold;
+    margin-bottom: 12px;
+  }
+  #envelopeDesc {
+    font-size: 1rem;
+    color: #aa5570;
+    margin-bottom: 20px;
+  }
+  #btnYes, #btnNo {
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 10px;
+    margin: 0 8px;
+    cursor: pointer;
+  }
+  #btnYes {
+    background-color: #fd6586;
+  }
+  #btnNo {
+    background-color: #f2aab2;
+    color: #661626;
+  }
+  #btnYes:focus, #btnNo:focus {
+    outline: 2px solid #d94a78;
+  }
+
   .container-main {
     display: flex; flex-direction: row; align-items: flex-end; justify-content: center;
     width: 100vw; height: 100vh; overflow: visible; position: relative;
     z-index: 1;
   }
   .bouquet {
-    width: 490px; height: 340px; margin-right: 40px;
-    animation: fadeInPop 1.3s cubic-bezier(.38,2,.5,1.11);
+    width: 90vw;
+    max-width: 490px;
+    height: auto;
+    margin-right: 20px;
+    opacity: 0;
+    transition: opacity 1s ease;
   }
-  @keyframes fadeInPop {
-    from { opacity: 0; transform: scale(0.87);}
-    to   { opacity: 1; transform: scale(1);}
+  .bouquet.visible {
+    opacity: 1;
   }
   .floating {
     position: absolute; user-select: none; pointer-events: none; z-index: 10;
@@ -124,6 +176,13 @@
       font-size: 1.15rem;
       padding: 0 2vw 2vw 2vw;
     }
+    .container-main {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .bouquet {
+      margin: 15px auto;
+    }
   }
   
   /* Note popup styles */
@@ -177,6 +236,18 @@
 <!-- Big heart intro -->
 <div id="heartIntro" aria-label="Heart intro animation" role="img">❤</div>
 
+<!-- Envelope dialog with Yes/No -->
+<div id="envelopeDialog" role="dialog" aria-modal="true" aria-labelledby="envelopeTitle" aria-describedby="envelopeDesc" aria-hidden="true" tabindex="-1">
+  <div id="envelopeTitle">
+    Will you accept this bouquet?
+  </div>
+  <div id="envelopeDesc">
+    Please choose Yes or No to continue.
+  </div>
+  <button id="btnYes" type="button">Yes</button>
+  <button id="btnNo" type="button">No</button>
+</div>
+
 <!-- Main content (hidden initially) -->
 <div id="mainContent" aria-hidden="true">
 
@@ -196,78 +267,188 @@
   <span class="floating heart f10" style="color:#ff5a5a;">❤</span>
 
   <div class="container-main">
-    <!-- Updated bouquet with red flowers -->
-    <div class="bouquet" aria-label="Bouquet of glowing red flowers" role="img">
-      <svg viewBox="0 0 390 320" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Big leafy background -->
-        <ellipse cx="130" cy="240" rx="70" ry="35" fill="#6b302f" fill-opacity="0.90"/>
-        <ellipse cx="280" cy="265" rx="70" ry="33" fill="#5a2927" fill-opacity="0.74"/>
-        <ellipse cx="200" cy="280" rx="65" ry="29" fill="#7d3c3b" fill-opacity="0.6"/>
-        <!-- Layered mid leaves -->
-        <ellipse cx="100" cy="200" rx="28" ry="11" fill="#a54746" fill-opacity="0.80"/>
-        <ellipse cx="275" cy="220" rx="36" ry="14" fill="#b34b54" fill-opacity="0.7"/>
-        <ellipse cx="200" cy="210" rx="29" ry="6" fill="#d1565b" fill-opacity="0.45"/>
-        <ellipse cx="240" cy="260" rx="22" ry="9" fill="#c84d50" fill-opacity="0.65"/>
-        <ellipse cx="167" cy="267" rx="24" ry="9" fill="#b2302f" fill-opacity="0.46"/>
-        <ellipse cx="300" cy="220" rx="15" ry="7" fill="#7f191a" fill-opacity="0.7"/>
-        <!-- Main stems -->
-        <rect x="191" y="120" width="8" height="120" rx="3" fill="#913534"/>
-        <rect x="120" y="165" width="7" height="88" rx="2" fill="#751f1f"/>
-        <rect x="259" y="135" width="6" height="100" rx="2" fill="#be3a3e"/>
-        <!-- Extra stem catchlights -->
-        <rect x="195" y="145" width="2" height="79" rx="1" fill="#f9c0be" fill-opacity="0.14"/>
-        <!-- Stylized red glowing flowers -->
-        <!-- Largest center flower -->
-        <g filter="url(#glowf)">
-          <ellipse cx="195" cy="93" rx="44" ry="20" fill="#ef4a4a"/>
-          <ellipse cx="195" cy="81" rx="24" ry="19" fill="#ff6666"/>
-          <ellipse cx="175" cy="80" rx="14" ry="13" fill="#ff7f7f"/>
-          <ellipse cx="215" cy="83" rx="14" ry="13" fill="#ff9090"/>
-          <!-- Bloom center -->
-          <ellipse cx="195" cy="91" rx="11" ry="11" fill="#ffd6d6" stroke="#ff6060" stroke-width="3"/>
+    
+    <!-- 6 bouquets in total, duplicated -->
+    <div class="bouquet" aria-label="Bouquet of glowing blue flowers" role="img">
+      <!-- bouquet SVG -->
+      <svg viewBox="0 0 220 180" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+        <!-- stems -->
+        <rect x="100" y="90" width="8" height="80" rx="3" fill="#2e7d32" />
+        <rect x="70" y="110" width="6" height="70" rx="2" fill="#1b5e20" />
+        <rect x="130" y="100" width="6" height="80" rx="2" fill="#388e3c" />
+        <!-- leaves -->
+        <ellipse cx="100" cy="160" rx="32" ry="15" fill="#3e8e41" fill-opacity="0.9" />
+        <ellipse cx="60" cy="140" rx="25" ry="12" fill="#4caf50" fill-opacity="0.75" />
+        <ellipse cx="140" cy="150" rx="20" ry="9" fill="#2e7d32" fill-opacity="0.8" />
+        <!-- blue flowers -->
+        <g filter="url(#glow)">
+          <ellipse cx="104" cy="60" rx="40" ry="25" fill="#5df" />
+          <ellipse cx="96" cy="55" rx="18" ry="18" fill="#48b" />
+          <ellipse cx="112" cy="55" rx="18" ry="18" fill="#aaf" />
+          <ellipse cx="80" cy="60" rx="13" ry="13" fill="#6cf" />
+          <ellipse cx="127" cy="60" rx="13" ry="13" fill="#9bf" />
+          <!-- flower center -->
+          <ellipse cx="104" cy="65" rx="10" ry="10" fill="#cce" stroke="#7ab" stroke-width="3" />
         </g>
-        <!-- Left flower -->
-        <g filter="url(#glowf)">
-          <ellipse cx="115" cy="120" rx="35" ry="17" fill="#ff5555"/>
-          <ellipse cx="105" cy="108" rx="13" ry="12" fill="#ff9898"/>
-          <ellipse cx="124" cy="111" rx="13" ry="12" fill="#ffabab"/>
-          <ellipse cx="115" cy="117" rx="9" ry="8.7" fill="#ffc7c7"/>
-        </g>
-        <!-- Right flower -->
-        <g filter="url(#glowf)">
-          <ellipse cx="260" cy="125" rx="34" ry="18" fill="#ff5858"/>
-          <ellipse cx="265" cy="112" rx="12" ry="13" fill="#ffdedc"/>
-          <ellipse cx="247" cy="117" rx="10" ry="11" fill="#ffcece"/>
-          <ellipse cx="261" cy="120" rx="7" ry="7.2" fill="#ffd6d6"/>
-        </g>
-        <!-- Foreground blooms -->
-        <g filter="url(#glowf)">
-          <ellipse cx="205" cy="145" rx="18" ry="10" fill="#ffa1a1"/>
-          <ellipse cx="132" cy="146" rx="14" ry="7.2" fill="#ffbaba"/>
-          <ellipse cx="245" cy="155" rx="17" ry="9.4" fill="#ff9999"/>
-        </g>
-        <!-- Random pollen glow dots -->
-        <g>
-          <circle cx="160" cy="55" r="2.5" fill="#ffbbbb" opacity="0.8"/>
-          <circle cx="151" cy="90" r="2.2" fill="#ffcccc" opacity="0.7"/>
-          <circle cx="217" cy="87" r="1.8" fill="#ff9999" opacity="0.7"/>
-          <circle cx="210" cy="133" r="1.8" fill="#ffbbbb" opacity="0.75"/>
-          <circle cx="161" cy="100" r="1.3" fill="#ffbbbb" />
-          <circle cx="207" cy="72" r="1.7" fill="#ffaaaa" opacity="0.75"/>
-          <circle cx="240" cy="120" r="2.0" fill="#ff9999" opacity="0.63"/>
+        <!-- smaller flowers -->
+        <g filter="url(#glow)">
+          <ellipse cx="65" cy="90" rx="28" ry="15" fill="#6ce" />
+          <ellipse cx="55" cy="85" rx="12" ry="12" fill="#aaf" />
+          <ellipse cx="75" cy="85" rx="12" ry="12" fill="#8bd" />
+          <ellipse cx="65" cy="90" rx="9" ry="9" fill="#cde" />
         </g>
         <defs>
-          <filter id="glowf" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="6" result="blur"/>
-            <feMerge>
-              <feMergeNode in="blur"/>
-              <feMergeNode in="SourceGraphic"/>
-            </feMerge>
+          <filter id="glow" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+            <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#7af" flood-opacity="0.8" />
+            <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#aae" flood-opacity="0.5" />
           </filter>
         </defs>
       </svg>
     </div>
-    <!-- Animated clickable heart on right -->
+    <!-- Repeat same bouquet 5 more times -->
+    <div class="bouquet" aria-label="Bouquet of glowing blue flowers" role="img"> 
+      <!-- same SVG as above -->
+      <svg viewBox="0 0 220 180" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+        <!-- stems -->
+        <rect x="100" y="90" width="8" height="80" rx="3" fill="#2e7d32" />
+        <rect x="70" y="110" width="6" height="70" rx="2" fill="#1b5e20" />
+        <rect x="130" y="100" width="6" height="80" rx="2" fill="#388e3c" />
+        <!-- leaves -->
+        <ellipse cx="100" cy="160" rx="32" ry="15" fill="#3e8e41" fill-opacity="0.9" />
+        <ellipse cx="60" cy="140" rx="25" ry="12" fill="#4caf50" fill-opacity="0.75" />
+        <ellipse cx="140" cy="150" rx="20" ry="9" fill="#2e7d32" fill-opacity="0.8" />
+        <!-- blue flowers -->
+        <g filter="url(#glow)">
+          <ellipse cx="104" cy="60" rx="40" ry="25" fill="#5df" />
+          <ellipse cx="96" cy="55" rx="18" ry="18" fill="#48b" />
+          <ellipse cx="112" cy="55" rx="18" ry="18" fill="#aaf" />
+          <ellipse cx="80" cy="60" rx="13" ry="13" fill="#6cf" />
+          <ellipse cx="127" cy="60" rx="13" ry="13" fill="#9bf" />
+          <!-- flower center -->
+          <ellipse cx="104" cy="65" rx="10" ry="10" fill="#cce" stroke="#7ab" stroke-width="3" />
+        </g>
+        <!-- smaller flowers -->
+        <g filter="url(#glow)">
+          <ellipse cx="65" cy="90" rx="28" ry="15" fill="#6ce" />
+          <ellipse cx="55" cy="85" rx="12" ry="12" fill="#aaf" />
+          <ellipse cx="75" cy="85" rx="12" ry="12" fill="#8bd" />
+          <ellipse cx="65" cy="90" rx="9" ry="9" fill="#cde" />
+        </g>
+        <defs>
+          <filter id="glow" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+            <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#7af" flood-opacity="0.8" />
+            <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#aae" flood-opacity="0.5" />
+          </filter>
+        </defs>
+      </svg>
+    </div>
+    <div class="bouquet" aria-label="Bouquet of glowing blue flowers" role="img"> 
+      <svg viewBox="0 0 220 180" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+        <!-- stems -->
+        <rect x="100" y="90" width="8" height="80" rx="3" fill="#2e7d32" />
+        <rect x="70" y="110" width="6" height="70" rx="2" fill="#1b5e20" />
+        <rect x="130" y="100" width="6" height="80" rx="2" fill="#388e3c" />
+        <!-- leaves -->
+        <ellipse cx="100" cy="160" rx="32" ry="15" fill="#3e8e41" fill-opacity="0.9" />
+        <ellipse cx="60" cy="140" rx="25" ry="12" fill="#4caf50" fill-opacity="0.75" />
+        <ellipse cx="140" cy="150" rx="20" ry="9" fill="#2e7d32" fill-opacity="0.8" />
+        <!-- blue flowers -->
+        <g filter="url(#glow)">
+          <ellipse cx="104" cy="60" rx="40" ry="25" fill="#5df" />
+          <ellipse cx="96" cy="55" rx="18" ry="18" fill="#48b" />
+          <ellipse cx="112" cy="55" rx="18" ry="18" fill="#aaf" />
+          <ellipse cx="80" cy="60" rx="13" ry="13" fill="#6cf" />
+          <ellipse cx="127" cy="60" rx="13" ry="13" fill="#9bf" />
+          <!-- flower center -->
+          <ellipse cx="104" cy="65" rx="10" ry="10" fill="#cce" stroke="#7ab" stroke-width="3" />
+        </g>
+        <!-- smaller flowers -->
+        <g filter="url(#glow)">
+          <ellipse cx="65" cy="90" rx="28" ry="15" fill="#6ce" />
+          <ellipse cx="55" cy="85" rx="12" ry="12" fill="#aaf" />
+          <ellipse cx="75" cy="85" rx="12" ry="12" fill="#8bd" />
+          <ellipse cx="65" cy="90" rx="9" ry="9" fill="#cde" />
+        </g>
+        <defs>
+          <filter id="glow" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+            <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#7af" flood-opacity="0.8" />
+            <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#aae" flood-opacity="0.5" />
+          </filter>
+        </defs>
+      </svg>
+    </div>
+    <div class="bouquet" aria-label="Bouquet of glowing blue flowers" role="img"> 
+      <svg viewBox="0 0 220 180" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+        <!-- stems -->
+        <rect x="100" y="90" width="8" height="80" rx="3" fill="#2e7d32" />
+        <rect x="70" y="110" width="6" height="70" rx="2" fill="#1b5e20" />
+        <rect x="130" y="100" width="6" height="80" rx="2" fill="#388e3c" />
+        <!-- leaves -->
+        <ellipse cx="100" cy="160" rx="32" ry="15" fill="#3e8e41" fill-opacity="0.9" />
+        <ellipse cx="60" cy="140" rx="25" ry="12" fill="#4caf50" fill-opacity="0.75" />
+        <ellipse cx="140" cy="150" rx="20" ry="9" fill="#2e7d32" fill-opacity="0.8" />
+        <!-- blue flowers -->
+        <g filter="url(#glow)">
+          <ellipse cx="104" cy="60" rx="40" ry="25" fill="#5df" />
+          <ellipse cx="96" cy="55" rx="18" ry="18" fill="#48b" />
+          <ellipse cx="112" cy="55" rx="18" ry="18" fill="#aaf" />
+          <ellipse cx="80" cy="60" rx="13" ry="13" fill="#6cf" />
+          <ellipse cx="127" cy="60" rx="13" ry="13" fill="#9bf" />
+          <!-- flower center -->
+          <ellipse cx="104" cy="65" rx="10" ry="10" fill="#cce" stroke="#7ab" stroke-width="3" />
+        </g>
+        <!-- smaller flowers -->
+        <g filter="url(#glow)">
+          <ellipse cx="65" cy="90" rx="28" ry="15" fill="#6ce" />
+          <ellipse cx="55" cy="85" rx="12" ry="12" fill="#aaf" />
+          <ellipse cx="75" cy="85" rx="12" ry="12" fill="#8bd" />
+          <ellipse cx="65" cy="90" rx="9" ry="9" fill="#cde" />
+        </g>
+        <defs>
+          <filter id="glow" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+            <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#7af" flood-opacity="0.8" />
+            <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#aae" flood-opacity="0.5" />
+          </filter>
+        </defs>
+      </svg>
+    </div>
+    <div class="bouquet" aria-label="Bouquet of glowing blue flowers" role="img"> 
+      <svg viewBox="0 0 220 180" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+        <!-- stems -->
+        <rect x="100" y="90" width="8" height="80" rx="3" fill="#2e7d32" />
+        <rect x="70" y="110" width="6" height="70" rx="2" fill="#1b5e20" />
+        <rect x="130" y="100" width="6" height="80" rx="2" fill="#388e3c" />
+        <!-- leaves -->
+        <ellipse cx="100" cy="160" rx="32" ry="15" fill="#3e8e41" fill-opacity="0.9" />
+        <ellipse cx="60" cy="140" rx="25" ry="12" fill="#4caf50" fill-opacity="0.75" />
+        <ellipse cx="140" cy="150" rx="20" ry="9" fill="#2e7d32" fill-opacity="0.8" />
+        <!-- blue flowers -->
+        <g filter="url(#glow)">
+          <ellipse cx="104" cy="60" rx="40" ry="25" fill="#5df" />
+          <ellipse cx="96" cy="55" rx="18" ry="18" fill="#48b" />
+          <ellipse cx="112" cy="55" rx="18" ry="18" fill="#aaf" />
+          <ellipse cx="80" cy="60" rx="13" ry="13" fill="#6cf" />
+          <ellipse cx="127" cy="60" rx="13" ry="13" fill="#9bf" />
+          <!-- flower center -->
+          <ellipse cx="104" cy="65" rx="10" ry="10" fill="#cce" stroke="#7ab" stroke-width="3" />
+        </g>
+        <!-- smaller flowers -->
+        <g filter="url(#glow)">
+          <ellipse cx="65" cy="90" rx="28" ry="15" fill="#6ce" />
+          <ellipse cx="55" cy="85" rx="12" ry="12" fill="#aaf" />
+          <ellipse cx="75" cy="85" rx="12" ry="12" fill="#8bd" />
+          <ellipse cx="65" cy="90" rx="9" ry="9" fill="#cde" />
+        </g>
+        <defs>
+          <filter id="glow" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+            <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#7af" flood-opacity="0.8" />
+            <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#aae" flood-opacity="0.5" />
+          </filter>
+        </defs>
+      </svg>
+    </div>
+
+    
     <span class="side-heart-anim" id="rightHeart" role="button" tabindex="0" aria-label="Made by Gabe's heart and mind. Click for note.">❤</span>
   </div>
 
@@ -283,10 +464,18 @@
 </div>
 
 <script>
-  // Show / hide note on heart click or key
+  // Elements
+  const heartIntro = document.getElementById('heartIntro');
+  const mainContent = document.getElementById('mainContent');
+  const envelopeDialog = document.getElementById('envelopeDialog');
+  const btnYes = document.getElementById('btnYes');
+  const btnNo = document.getElementById('btnNo');
   const heart = document.getElementById('rightHeart');
   const note = document.getElementById('heartNote');
 
+  const introDuration = 4000;
+
+  // Show / hide note on heart click or key
   function showNote() {
     note.classList.add('show');
     setTimeout(() => note.classList.remove('show'), 4000);
@@ -322,23 +511,59 @@
     petalContainer.appendChild(petal);
   }
 
-  // Handle intro fade out and main content fade in
-  const heartIntro = document.getElementById('heartIntro');
-  const mainContent = document.getElementById('mainContent');
-
-  const introDuration = 4000;
-
+  // After intro, fade out heartIntro and show envelope dialog
   window.addEventListener('load', () => {
     setTimeout(() => {
       heartIntro.style.transition = "opacity 1s ease";
       heartIntro.style.opacity = '0';
-      mainContent.classList.add('visible');
-      mainContent.setAttribute('aria-hidden', 'false');
 
       setTimeout(() => {
         heartIntro.style.display = 'none';
+        envelopeDialog.style.display = 'block';
+        envelopeDialog.setAttribute('aria-hidden', 'false');
+        envelopeDialog.focus();
       }, 1000);
     }, introDuration);
+  });
+
+  // Fade in bouquets one by one with delay
+  function fadeInBouquetsSequentially() {
+    mainContent.classList.add('visible');
+    mainContent.setAttribute('aria-hidden', 'false');
+    
+    const bouquets = document.querySelectorAll('.bouquet');
+    
+    bouquets.forEach(bouquet => {
+      bouquet.classList.remove('visible'); // Reset, just in case
+    });
+    
+    bouquets.forEach((bouquet, index) => {
+      setTimeout(() => {
+        bouquet.classList.add('visible');
+      }, index * 800); // 800ms delay between each
+    });
+  }
+
+  // Yes button click - hide envelope dialog and show bouquets
+  btnYes.addEventListener('click', () => {
+    envelopeDialog.style.transition = 'opacity 0.5s ease';
+    envelopeDialog.style.opacity = '0';
+    setTimeout(() => {
+      envelopeDialog.style.display = 'none';
+      envelopeDialog.setAttribute('aria-hidden', 'true');
+      fadeInBouquetsSequentially();
+    }, 500);
+  });
+
+  // No button click - hide envelope dialog
+  btnNo.addEventListener('click', () => {
+    envelopeDialog.style.transition = 'opacity 0.5s ease';
+    envelopeDialog.style.opacity = '0';
+    setTimeout(() => {
+      envelopeDialog.style.display = 'none';
+      envelopeDialog.setAttribute('aria-hidden', 'true');
+      // Optional: add a message or other logic if needed
+    }, 500);
   });
 </script>
 </body>
