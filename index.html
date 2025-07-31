@@ -1,0 +1,345 @@
+\<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Red Roses Bouquet with Infinite Petals Rain</title>
+<style>
+  html, body {
+    margin: 0; padding: 0;
+    background: radial-gradient(ellipse at center, #101826 70%, #000 100%);
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    font-family: Georgia, serif;
+    color: #ffb6c1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  body {
+    flex-direction: column;
+    position: relative;
+  }
+  
+  /* Heart intro container */
+  #heartIntro {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 15rem;
+    color: #fd6586;
+    text-shadow:
+      0 0 40px #fd6586CC,
+      0 0 30px #fffbc188,
+      0 0 60px #f8d3bb88;
+    animation: heartPulseBig 1.8s infinite ease-in-out;
+    z-index: 100;
+    user-select: none;
+  }
+  @keyframes heartPulseBig {
+    0%,100% { transform: translate(-50%, -50%) scale(1) rotate(-6deg);}
+    45% { transform: translate(-50%, -50%) scale(1.2) rotate(6deg);}
+    70% { transform: translate(-50%, -50%) scale(0.9) rotate(-6deg);}
+  }
+  
+  /* Hide bouquet and page initially */
+  #mainContent {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1s ease;
+  }
+  #mainContent.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  
+  .container-main {
+    display: flex; flex-direction: row; align-items: flex-end; justify-content: center;
+    width: 100vw; height: 100vh; overflow: visible; position: relative;
+    z-index: 1;
+  }
+  .bouquet {
+    width: 490px; height: 340px; margin-right: 40px;
+    animation: fadeInPop 1.3s cubic-bezier(.38,2,.5,1.11);
+  }
+  @keyframes fadeInPop {
+    from { opacity: 0; transform: scale(0.87);}
+    to   { opacity: 1; transform: scale(1);}
+  }
+  .floating {
+    position: absolute; user-select: none; pointer-events: none; z-index: 10;
+    opacity: 0.9; animation: floatUp 4s linear infinite;
+  }
+  .heart { font-size: 1.7rem; color: #ff6a6e; text-shadow: 0 0 10px #ff8896, 0 0 8px #ff7eaa;}
+  .dot {
+    width: 16px; height: 16px; border-radius: 50%;
+    background: radial-gradient(circle, #fd6781 65%, #ff3b3b 100%);
+    box-shadow: 0 0 20px 6px #ff4455cc, 0 0 10px 1px #ff0011cc;
+  }
+  .f1 { left: 170px; bottom: 70px; animation-delay: 0s; }
+  .f2 { left: 225px; bottom: 55px; animation-delay: .8s;}
+  .f3 { left: 260px; bottom: 65px; animation-delay: 2s;}
+  .f4 { left: 350px; bottom: 108px; animation-delay: 2.7s;}
+  .f5 { left: 110px; bottom: 110px; animation-delay: 2.6s;}
+  .f6 { left: 49px; bottom: 35px; animation-delay: 1.3s;}
+  .f7 { left: 415px; bottom: 40px; animation-delay: 2.9s;}
+  .f8 { left: 390px; bottom: 140px; animation-delay: 1.4s;}
+  .f9 { left: 228px; bottom: 130px; animation-delay: 2.1s;}
+  .f10 { left: 365px; bottom: 13px; animation-delay: 1.1s;}
+  @keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    90% { opacity: .94;}
+    100% { transform: translateY(-110px) scale(.95); opacity: 0;}
+  }
+  .side-heart-anim {
+    position: absolute; right: 70px; bottom: 35vh; font-size: 5rem;
+    color: #fd6586; text-shadow: 0 0 24px #fd6586CC, 0 0 18px #fffbc188, 0 0 50px #f8d3bb88;
+    animation: heartPulse 1.8s infinite ease-in-out; z-index: 11;
+    filter: drop-shadow(0 0 35px #ffbad8b0);
+    cursor: pointer; user-select: none;
+  }
+  @keyframes heartPulse {
+    0%,100% { transform: scale(1) rotate(-6deg);}
+    47% { transform: scale(1.18) rotate(6deg);}
+    65% { transform: scale(0.97) rotate(-6deg);}
+  }
+  /* UPDATED caption CSS */
+  .romantic-text {
+    font-size: 1rem;
+    text-align: center;
+    margin: 0 auto 32px auto;
+    padding: 0 4vw 1.5vw 4vw;
+    max-width: 96vw;
+    width: fit-content;
+    box-sizing: border-box;
+    z-index: 3;
+    text-shadow: 0 0 8px #ffbbd8;
+    color: #ffcccc;
+    letter-spacing: .05em;
+    word-break: break-word;
+    line-height: 1.25;
+  }
+  @media (max-width: 600px) {
+    .romantic-text {
+      font-size: 1.15rem;
+      padding: 0 2vw 2vw 2vw;
+    }
+  }
+  
+  /* Note popup styles */
+  .heart-note {
+    position: absolute; right: 130px; bottom: 57vh;
+    background: rgba(255, 182, 193, 0.9); color: #4b002b;
+    padding: 10px 16px; border-radius: 13px; font-family: 'Georgia', serif;
+    font-size: 1.05rem; box-shadow: 0 0 15px #ffb6c1aa;
+    user-select: none; pointer-events: none; opacity: 0; transform: translateY(20px);
+    transition: opacity 0.4s, transform 0.4s; z-index: 12; white-space: nowrap;
+  }
+  .heart-note.show { opacity: 1; transform: translateY(0);}
+  
+  /* Petal rain container */
+  .petal-rain {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    pointer-events: none;
+    z-index: 15;
+    overflow: visible;
+  }
+  .petal {
+    position: absolute;
+    top: -30px;
+    width: 15px; height: 18px;
+    background: radial-gradient(circle at 50% 50%, #ff4d4d 76%, #c30000 95%);
+    border-radius: 50% 50% 60% 60% / 75% 75% 25% 25%;
+    opacity: 0.9;
+    filter: drop-shadow(0 0 5px #ff6a6a);
+    animation-name: fallPetal;
+    animation-duration: 8s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-fill-mode: forwards;
+  }
+  @keyframes fallPetal {
+    to {
+      transform: translateY(110vh) rotate(360deg) scale(0.8);
+      opacity: 0;
+    }
+    from {
+      transform: translateY(0) rotate(0deg) scale(1);
+      opacity: 0.95;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Big heart intro -->
+<div id="heartIntro" aria-label="Heart intro animation" role="img">❤</div>
+
+<!-- Main content (hidden initially) -->
+<div id="mainContent" aria-hidden="true">
+
+  <!-- Petals rain container -->
+  <div class="petal-rain" id="petalRain"></div>
+
+  <!-- Floating hearts and dots -->
+  <span class="floating heart f1">❤</span>
+  <span class="floating heart f2" style="font-size:2.1rem;color:#ff4d4d;">❤</span>
+  <div class="floating dot f3" style="background: radial-gradient(circle, #ff5a5a 65%, #cc0000 100%); box-shadow: 0 0 20px 6px #ff5555cc, 0 0 10px 1px #ff2222cc;"></div>
+  <span class="floating heart f4" style="font-size:1.3rem;color:#ff3232;">❤</span>
+  <div class="floating dot f5" style="background: radial-gradient(circle, #ff6f6f 65%, #d20707 100%);"></div>
+  <div class="floating dot f6" style="background:radial-gradient(circle,#ff7b7b 65%,#f00404 100%);"></div>
+  <span class="floating heart f7" style="font-size:2rem;color:#ff6060;text-shadow:0 0 8px #ff7777;">❤</span>
+  <div class="floating dot f8" style="width:11px;height:11px; background: radial-gradient(circle,#ff8a8a 65%,#ff0000 100%);"></div>
+  <div class="floating dot f9" style="background:radial-gradient(circle,#ff9999 65%,#ff1111 100%);width:12px;height:12px;"></div>
+  <span class="floating heart f10" style="color:#ff5a5a;">❤</span>
+
+  <div class="container-main">
+    <!-- Updated bouquet with red flowers -->
+    <div class="bouquet" aria-label="Bouquet of glowing red flowers" role="img">
+      <svg viewBox="0 0 390 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Big leafy background -->
+        <ellipse cx="130" cy="240" rx="70" ry="35" fill="#6b302f" fill-opacity="0.90"/>
+        <ellipse cx="280" cy="265" rx="70" ry="33" fill="#5a2927" fill-opacity="0.74"/>
+        <ellipse cx="200" cy="280" rx="65" ry="29" fill="#7d3c3b" fill-opacity="0.6"/>
+        <!-- Layered mid leaves -->
+        <ellipse cx="100" cy="200" rx="28" ry="11" fill="#a54746" fill-opacity="0.80"/>
+        <ellipse cx="275" cy="220" rx="36" ry="14" fill="#b34b54" fill-opacity="0.7"/>
+        <ellipse cx="200" cy="210" rx="29" ry="6" fill="#d1565b" fill-opacity="0.45"/>
+        <ellipse cx="240" cy="260" rx="22" ry="9" fill="#c84d50" fill-opacity="0.65"/>
+        <ellipse cx="167" cy="267" rx="24" ry="9" fill="#b2302f" fill-opacity="0.46"/>
+        <ellipse cx="300" cy="220" rx="15" ry="7" fill="#7f191a" fill-opacity="0.7"/>
+        <!-- Main stems -->
+        <rect x="191" y="120" width="8" height="120" rx="3" fill="#913534"/>
+        <rect x="120" y="165" width="7" height="88" rx="2" fill="#751f1f"/>
+        <rect x="259" y="135" width="6" height="100" rx="2" fill="#be3a3e"/>
+        <!-- Extra stem catchlights -->
+        <rect x="195" y="145" width="2" height="79" rx="1" fill="#f9c0be" fill-opacity="0.14"/>
+        <!-- Stylized red glowing flowers -->
+        <!-- Largest center flower -->
+        <g filter="url(#glowf)">
+          <ellipse cx="195" cy="93" rx="44" ry="20" fill="#ef4a4a"/>
+          <ellipse cx="195" cy="81" rx="24" ry="19" fill="#ff6666"/>
+          <ellipse cx="175" cy="80" rx="14" ry="13" fill="#ff7f7f"/>
+          <ellipse cx="215" cy="83" rx="14" ry="13" fill="#ff9090"/>
+          <!-- Bloom center -->
+          <ellipse cx="195" cy="91" rx="11" ry="11" fill="#ffd6d6" stroke="#ff6060" stroke-width="3"/>
+        </g>
+        <!-- Left flower -->
+        <g filter="url(#glowf)">
+          <ellipse cx="115" cy="120" rx="35" ry="17" fill="#ff5555"/>
+          <ellipse cx="105" cy="108" rx="13" ry="12" fill="#ff9898"/>
+          <ellipse cx="124" cy="111" rx="13" ry="12" fill="#ffabab"/>
+          <ellipse cx="115" cy="117" rx="9" ry="8.7" fill="#ffc7c7"/>
+        </g>
+        <!-- Right flower -->
+        <g filter="url(#glowf)">
+          <ellipse cx="260" cy="125" rx="34" ry="18" fill="#ff5858"/>
+          <ellipse cx="265" cy="112" rx="12" ry="13" fill="#ffdedc"/>
+          <ellipse cx="247" cy="117" rx="10" ry="11" fill="#ffcece"/>
+          <ellipse cx="261" cy="120" rx="7" ry="7.2" fill="#ffd6d6"/>
+        </g>
+        <!-- Foreground blooms -->
+        <g filter="url(#glowf)">
+          <ellipse cx="205" cy="145" rx="18" ry="10" fill="#ffa1a1"/>
+          <ellipse cx="132" cy="146" rx="14" ry="7.2" fill="#ffbaba"/>
+          <ellipse cx="245" cy="155" rx="17" ry="9.4" fill="#ff9999"/>
+        </g>
+        <!-- Random pollen glow dots -->
+        <g>
+          <circle cx="160" cy="55" r="2.5" fill="#ffbbbb" opacity="0.8"/>
+          <circle cx="151" cy="90" r="2.2" fill="#ffcccc" opacity="0.7"/>
+          <circle cx="217" cy="87" r="1.8" fill="#ff9999" opacity="0.7"/>
+          <circle cx="210" cy="133" r="1.8" fill="#ffbbbb" opacity="0.75"/>
+          <circle cx="161" cy="100" r="1.3" fill="#ffbbbb" />
+          <circle cx="207" cy="72" r="1.7" fill="#ffaaaa" opacity="0.75"/>
+          <circle cx="240" cy="120" r="2.0" fill="#ff9999" opacity="0.63"/>
+        </g>
+        <defs>
+          <filter id="glowf" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="6" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+      </svg>
+    </div>
+    <!-- Animated clickable heart on right -->
+    <span class="side-heart-anim" id="rightHeart" role="button" tabindex="0" aria-label="Made by Gabe's heart and mind. Click for note.">❤</span>
+  </div>
+
+  <!-- The note popup -->
+  <div class="heart-note" id="heartNote" role="alert" aria-live="polite">
+   Piangg, i hope you love it - Made by Gabe's heart
+  </div>
+
+  <div class="romantic-text">
+    I love you with all of my heart. You provide me more joy than I could have ever dreamed. You are the best thing in the world, and you have no idea how much I adore you.
+  </div>
+
+</div>
+
+<script>
+  // Show / hide note on heart click or key
+  const heart = document.getElementById('rightHeart');
+  const note = document.getElementById('heartNote');
+
+  function showNote() {
+    note.classList.add('show');
+    setTimeout(() => note.classList.remove('show'), 4000);
+  }
+  heart.addEventListener('click', showNote);
+  heart.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      showNote();
+    }
+  });
+
+  // Generate infinite falling red petals randomly across viewport
+  const petalContainer = document.getElementById('petalRain');
+  const petalCount = 100; // number of petals
+
+  for(let i=0; i<petalCount; i++) {
+    const petal = document.createElement('div');
+    petal.classList.add('petal');
+    
+    // Random horizontal start position (0vw to 100vw)
+    petal.style.left = (Math.random() * 100) + 'vw';
+    
+    // Random animation duration between 6s and 9s for variety
+    petal.style.animationDuration = (6 + Math.random() * 3) + 's';
+    
+    // Random animation delay
+    petal.style.animationDelay = (Math.random() * 8) + 's';
+    
+    // Random rotation start angle
+    petal.style.transform = `rotate(${Math.random() * 360}deg)`;
+    
+    petalContainer.appendChild(petal);
+  }
+
+  // Handle intro fade out and main content fade in
+  const heartIntro = document.getElementById('heartIntro');
+  const mainContent = document.getElementById('mainContent');
+
+  const introDuration = 4000;
+
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      heartIntro.style.transition = "opacity 1s ease";
+      heartIntro.style.opacity = '0';
+      mainContent.classList.add('visible');
+      mainContent.setAttribute('aria-hidden', 'false');
+
+      setTimeout(() => {
+        heartIntro.style.display = 'none';
+      }, 1000);
+    }, introDuration);
+  });
+</script>
+</body>
+</html>
