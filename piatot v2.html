@@ -14,7 +14,7 @@
 }
 
 body {
-    background: #080808;
+    background: #fff7f5;
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -23,18 +23,104 @@ body {
     font-family: "Courier New", monospace;
 }
 
+/* ANIMATED PIXEL HEART BACKGROUND */
+
+#heartBackground {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.pixel-heart {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #f4a5bd;
+    box-shadow:
+        6px 0 #f4a5bd,
+        18px 0 #f4a5bd,
+        24px 0 #f4a5bd,
+        0 6px #f4a5bd,
+        6px 6px #f4a5bd,
+        12px 6px #f4a5bd,
+        18px 6px #f4a5bd,
+        24px 6px #f4a5bd,
+        30px 6px #f4a5bd,
+        0 12px #f4a5bd,
+        6px 12px #f4a5bd,
+        12px 12px #f4a5bd,
+        18px 12px #f4a5bd,
+        24px 12px #f4a5bd,
+        30px 12px #f4a5bd,
+        6px 18px #f4a5bd,
+        12px 18px #f4a5bd,
+        18px 18px #f4a5bd,
+        24px 18px #f4a5bd,
+        12px 24px #f4a5bd,
+        18px 24px #f4a5bd;
+    transform: scale(var(--scale));
+    opacity: 0;
+    animation: heartFall var(--duration) linear infinite;
+    animation-delay: var(--delay);
+}
+
+.pixel-heart.white {
+    background: #fff;
+    box-shadow:
+        6px 0 #fff,
+        18px 0 #fff,
+        24px 0 #fff,
+        0 6px #fff,
+        6px 6px #fff,
+        12px 6px #fff,
+        18px 6px #fff,
+        24px 6px #fff,
+        30px 6px #fff,
+        0 12px #fff,
+        6px 12px #fff,
+        12px 12px #fff,
+        18px 12px #fff,
+        24px 12px #fff,
+        30px 12px #fff,
+        6px 18px #fff,
+        12px 18px #fff,
+        18px 18px #fff,
+        24px 18px #fff,
+        12px 24px #fff,
+        18px 24px #fff;
+}
+
+@keyframes heartFall {
+    0% {
+        transform: translateY(-100px) scale(var(--scale)) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: var(--opacity);
+    }
+    90% {
+        opacity: var(--opacity);
+    }
+    100% {
+        transform: translateY(110vh) scale(var(--scale)) rotate(30deg);
+        opacity: 0;
+    }
+}
+
 /* INTRO */
 
 #intro {
     position: fixed;
     inset: 0;
-    background: #080808;
+    background: #fff7f5;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    color: white;
+    color: #d77e9c;
     z-index: 10;
     padding: 20px;
     transition: opacity 1s ease;
@@ -47,7 +133,7 @@ body {
 }
 
 #intro p {
-    color: #aaa;
+    color: #bd8999;
     font-size: 13px;
     margin-bottom: 35px;
 }
@@ -59,34 +145,45 @@ body {
 
 button {
     padding: 12px 28px;
-    border: 1px solid #777;
-    background: transparent;
-    color: white;
+    border: 2px solid #e9a1b9;
+    background: #fff0f4;
+    color: #c66d8d;
     font-family: inherit;
     cursor: pointer;
     transition: 0.3s;
 }
 
 button:hover {
-    background: white;
-    color: black;
+    background: #e9a1b9;
+    color: white;
 }
 
 /* LETTER PAPER */
 
 .paper {
     position: relative;
+    z-index: 2;
     width: min(92vw, 480px);
     max-height: 88vh;
     min-height: 400px;
-    background: #f5f5f5;
+    background: #fffafa;
     padding: 30px 25px 35px 40px;
     transform: rotate(-2deg);
-    box-shadow: 0 0 35px #555;
+    box-shadow: 0 0 35px #e8b5c4;
+    border: 3px solid #f3b3c7;
     opacity: 0;
     overflow-y: auto;
     transition: opacity 1.5s ease;
     scrollbar-width: thin;
+    scrollbar-color: #e9a1b9 #fff0f4;
+}
+
+.paper::before {
+    content: "";
+    position: absolute;
+    inset: 7px;
+    border: 2px dashed #f1bfd0;
+    pointer-events: none;
 }
 
 .holes {
@@ -102,8 +199,9 @@ button:hover {
 .holes span {
     width: 13px;
     height: 13px;
-    background: #080808;
+    background: #fff0f4;
     border-radius: 50%;
+    border: 1px solid #edb4c5;
 }
 
 /* PICTURES */
@@ -111,26 +209,40 @@ button:hover {
 .pictures {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    gap: 14px;
     margin-bottom: 22px;
+    position: relative;
+    z-index: 1;
 }
 
 .pictures img {
     width: 100%;
     height: 190px;
     object-fit: cover;
-    border: 5px solid white;
-    box-shadow: 0 2px 8px #aaa;
-    border-radius: 2px;
+
+    /* PIXEL PINK BORDER */
+    border: 6px solid #f2a5bd;
+    outline: 3px solid #e989a9;
+    outline-offset: 2px;
+
+    box-shadow:
+        0 3px 0 #d77d9d,
+        3px 3px 0 #d77d9d,
+        0 5px 12px #e8c1cd;
+
+    border-radius: 0;
+    image-rendering: auto;
 }
 
 .picture-caption {
     text-align: center;
     font-size: 10px;
-    color: #888;
+    color: #c77d98;
     margin-top: 10px;
     margin-bottom: 22px;
     letter-spacing: 1px;
+    position: relative;
+    z-index: 1;
 }
 
 /* MESSAGE */
@@ -138,21 +250,25 @@ button:hover {
 #message {
     font-size: 12px;
     line-height: 1.9;
-    color: #333;
+    color: #704c59;
     white-space: pre-wrap;
     text-align: left;
+    position: relative;
+    z-index: 1;
 }
 
 .signature {
     text-align: right;
     margin-top: 20px;
     font-size: 23px;
-    color: #777;
+    color: #df91ad;
+    position: relative;
+    z-index: 1;
 }
 
 #noMessage {
     display: none;
-    color: #aaa;
+    color: #bd8999;
     text-align: center;
     font-size: 14px;
     line-height: 2;
@@ -179,6 +295,9 @@ button:hover {
 
 <body>
 
+<!-- HEART BACKGROUND -->
+<div id="heartBackground"></div>
+
 <!-- MUSIC -->
 <audio id="bgMusic" preload="auto" loop>
     <source src="coming-up-roses.mp3" type="audio/mpeg">
@@ -192,7 +311,7 @@ button:hover {
     <p>Letter sa Chinabank babyy!</p>
 
     <div class="buttons">
-        <button onclick="openLetter()">Yes </button>
+        <button onclick="openLetter()">Yes</button>
         <button onclick="dontOpen()">Don't Open</button>
     </div>
 
@@ -217,8 +336,6 @@ button:hover {
         <span></span><span></span>
     </div>
 
-    
-
     <div class="pictures">
 
         <img src="IMG_6492.jpeg" alt="Our first picture">
@@ -240,6 +357,56 @@ button:hover {
 </div>
 
 <script>
+
+/* INFINITE PIXEL HEARTS */
+
+const heartBackground = document.getElementById("heartBackground");
+
+function createHearts() {
+
+    for (let i = 0; i < 65; i++) {
+
+        const heart = document.createElement("div");
+
+        heart.className = "pixel-heart";
+
+        if (Math.random() > 0.5) {
+            heart.classList.add("white");
+        }
+
+        heart.style.left = Math.random() * 100 + "vw";
+
+        heart.style.top = "-50px";
+
+        heart.style.setProperty(
+            "--scale",
+            (Math.random() * 0.8 + 0.4).toFixed(2)
+        );
+
+        heart.style.setProperty(
+            "--duration",
+            (Math.random() * 7 + 6) + "s"
+        );
+
+        heart.style.setProperty(
+            "--delay",
+            (-Math.random() * 15) + "s"
+        );
+
+        heart.style.setProperty(
+            "--opacity",
+            (Math.random() * 0.5 + 0.3).toFixed(2)
+        );
+
+        heartBackground.appendChild(heart);
+
+    }
+
+}
+
+createHearts();
+
+/* ROMANTIC MESSAGE */
 
 const text = `Babyy, ikaw ra ahong e marry puhon babyy and maka uban sa ahong future.
 
@@ -263,6 +430,8 @@ function typeWriter() {
         setTimeout(typeWriter, 55);
     }
 }
+
+/* OPEN LETTER */
 
 function openLetter() {
 
@@ -319,6 +488,8 @@ function openLetter() {
 
 }
 
+/* DON'T OPEN */
+
 function dontOpen() {
 
     document.getElementById("noMessage").style.display = "block";
@@ -326,6 +497,8 @@ function dontOpen() {
     document.querySelector(".buttons").style.display = "none";
 
 }
+
+/* GO BACK */
 
 function goBack() {
 
