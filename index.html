@@ -195,6 +195,28 @@ button:disabled:hover {
     pointer-events: none;
 }
 
+/* MUSIC TOGGLE BUTTON */
+
+.music-toggle-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 10;
+    padding: 4px 10px;
+    font-size: 12px;
+    border-radius: 12px;
+    border: 1px solid #e9a1b9;
+    background: #fff0f4;
+    color: #c66d8d;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.music-toggle-btn:hover {
+    background: #e9a1b9;
+    color: white;
+}
+
 .holes {
     position: absolute;
     left: 10px;
@@ -534,8 +556,11 @@ button:disabled:hover {
 <div id="heartBackground"></div>
 
 <!-- MUSIC -->
-<audio id="bgMusic" preload="auto" loop>
+<audio id="bgMusic" preload="auto">
     <source src="coming-up-roses.mp3" type="audio/mpeg">
+</audio>
+<audio id="sparksMusic" preload="auto">
+    <source src="Sparks.mp3" type="audio/mpeg">
 </audio>
 
 <!-- INTRO -->
@@ -562,6 +587,8 @@ button:disabled:hover {
 <!-- LETTER -->
 
 <div class="paper" id="paper">
+
+    <button class="music-toggle-btn" id="musicBtn" onclick="toggleMusic()">♡♫</button>
 
     <div class="holes">
         <span></span><span></span><span></span>
@@ -718,48 +745,70 @@ function typeWriter() {
     }
 }
 
+/* AUDIO MANAGERS */
+
+const music1 = document.getElementById("bgMusic");
+const music2 = document.getElementById("sparksMusic");
+let currentTrack = 1;
+
+const CHORUS_1 = 60;
+const DURATION_1 = 60;
+
+/* Sparks starts at 1:49 (109 seconds) */
+const CHORUS_2 = 109;
+const DURATION_2 = 60;
+
+function handleLoop(audio, startTime, duration) {
+    if (audio.currentTime >= startTime + duration) {
+        audio.currentTime = startTime;
+    }
+}
+
+music1.addEventListener("timeupdate", () => {
+    if (currentTrack === 1) handleLoop(music1, CHORUS_1, DURATION_1);
+});
+
+music2.addEventListener("timeupdate", () => {
+    if (currentTrack === 2) handleLoop(music2, CHORUS_2, DURATION_2);
+});
+
+function playTrack(trackNumber) {
+    music1.pause();
+    music2.pause();
+
+    const btn = document.getElementById("musicBtn");
+
+    if (trackNumber === 1) {
+        currentTrack = 1;
+        music1.volume = 0.3;
+        music1.currentTime = CHORUS_1;
+        music1.play().catch(err => console.error("Music error:", err));
+        btn.textContent = "♡♫";
+    } else {
+        currentTrack = 2;
+        music2.volume = 0.3;
+        music2.currentTime = CHORUS_2;
+        music2.play().catch(err => console.error("Music error:", err));
+        btn.textContent = "♥♫";
+    }
+}
+
+function toggleMusic() {
+    if (currentTrack === 1) {
+        playTrack(2);
+    } else {
+        playTrack(1);
+    }
+}
+
 /* OPEN LETTER */
 
 function openLetter() {
 
     const intro = document.getElementById("intro");
     const paper = document.getElementById("paper");
-    const music = document.getElementById("bgMusic");
 
-    const CHORUS_TIMESTAMP = 60;
-
-    music.volume = 0.3;
-
-    function startMusicAtChorus() {
-
-        const target = Math.min(
-            CHORUS_TIMESTAMP,
-            Math.max(0, music.duration - 0.5)
-        );
-
-        music.currentTime = target;
-
-        const playPromise = music.play();
-
-        if (playPromise !== undefined) {
-            playPromise.catch(error => {
-                console.error("Music could not play:", error);
-                alert("Make sure coming-up-roses.mp3 is in the same folder as this HTML file.");
-            });
-        }
-    }
-
-    if (music.readyState >= 1) {
-        startMusicAtChorus();
-    } else {
-        music.addEventListener(
-            "loadedmetadata",
-            startMusicAtChorus,
-            { once: true }
-        );
-
-        music.load();
-    }
+    playTrack(1);
 
     intro.style.opacity = "0";
 
