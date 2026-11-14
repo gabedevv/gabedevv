@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -158,6 +157,16 @@ button:hover {
     color: white;
 }
 
+button:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+button:disabled:hover {
+    background: #fff0f4;
+    color: #c66d8d;
+}
+
 /* LETTER PAPER */
 
 .paper {
@@ -219,19 +228,14 @@ button:hover {
     width: 100%;
     height: 190px;
     object-fit: cover;
-
-    /* PIXEL PINK BORDER */
     border: 6px solid #f2a5bd;
     outline: 3px solid #e989a9;
     outline-offset: 2px;
-
     box-shadow:
         0 3px 0 #d77d9d,
         3px 3px 0 #d77d9d,
         0 5px 12px #e8c1cd;
-
     border-radius: 0;
-    image-rendering: auto;
 }
 
 .picture-caption {
@@ -275,6 +279,223 @@ button:hover {
     margin-top: 30px;
 }
 
+/* ===== BUTTONS CONTAINER ===== */
+
+.letter-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 22px;
+    position: relative;
+    z-index: 5;
+}
+
+.album-btn, .sons-btn {
+    display: block;
+    width: 100%;
+    font-size: 12px;
+    text-align: center;
+}
+
+/* ===== PHOTO ALBUM ===== */
+
+#album {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    padding: 18px;
+    background: rgba(255, 240, 245, 0.94);
+    backdrop-filter: blur(3px);
+}
+
+#album.open {
+    display: flex;
+}
+
+.album-book {
+    position: relative;
+    width: min(94vw, 520px);
+    max-height: 82vh;
+    overflow-y: auto;
+    background: #fffafa;
+    border: 3px solid #f3b3c7;
+    box-shadow: 0 0 35px #e8b5c4;
+    padding: 22px 18px 18px;
+    scrollbar-width: thin;
+    scrollbar-color: #e9a1b9 #fff0f4;
+}
+
+.album-book::before {
+    content: "";
+    position: absolute;
+    inset: 7px;
+    border: 2px dashed #f1bfd0;
+    pointer-events: none;
+}
+
+.album-title {
+    position: relative;
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #c77d98;
+    margin-bottom: 16px;
+}
+
+/* 6 PHOTOS PER PAGE - 3 COLUMNS AND 2 ROWS */
+
+.album-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+/* PHOTO SIZE */
+
+.album-grid img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    border: 6px solid #f2a5bd;
+    outline: 3px solid #e989a9;
+    outline-offset: 2px;
+    box-shadow:
+        0 3px 0 #d77d9d,
+        3px 3px 0 #d77d9d,
+        0 5px 12px #e8c1cd;
+    border-radius: 0;
+    cursor: pointer;
+}
+
+.album-nav {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 18px;
+    gap: 10px;
+}
+
+.album-nav button {
+    padding: 9px 16px;
+    font-size: 12px;
+}
+
+.album-close {
+    font-size: 12px;
+    padding: 9px 22px;
+}
+
+/* ===== OUR SONS MODAL ===== */
+
+#sonsModal {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    padding: 18px;
+    background: rgba(255, 240, 245, 0.94);
+    backdrop-filter: blur(3px);
+}
+
+#sonsModal.open {
+    display: flex;
+}
+
+.sons-book {
+    position: relative;
+    width: min(94vw, 420px);
+    background: #fffafa;
+    border: 3px solid #f3b3c7;
+    box-shadow: 0 0 35px #e8b5c4;
+    padding: 22px 22px 24px;
+    text-align: center;
+}
+
+.sons-book::before {
+    content: "";
+    position: absolute;
+    inset: 7px;
+    border: 2px dashed #f1bfd0;
+    pointer-events: none;
+}
+
+.sons-content {
+    position: relative;
+    z-index: 1;
+}
+
+.sons-content img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    border: 6px solid #f2a5bd;
+    outline: 3px solid #e989a9;
+    outline-offset: 2px;
+    box-shadow:
+        0 3px 0 #d77d9d,
+        3px 3px 0 #d77d9d,
+        0 5px 12px #e8c1cd;
+    margin-bottom: 14px;
+    cursor: pointer;
+}
+
+.sons-name {
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: #c77d98;
+    margin-bottom: 4px;
+}
+
+/* FULL-SCREEN PHOTO VIEWER */
+
+#photoViewer {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgba(20, 10, 15, 0.92);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+#photoViewer.open {
+    display: flex;
+}
+
+#fullPhoto {
+    max-width: 95vw;
+    max-height: 90vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border: 5px solid #f2a5bd;
+    box-shadow: 0 0 25px #e8b5c4;
+}
+
+#closeViewer {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    background: #c66d8d;
+    border: 1px solid white;
+    font-size: 22px;
+    padding: 8px 15px;
+    z-index: 1;
+}
+
 /* MOBILE */
 
 @media (max-width: 400px) {
@@ -287,6 +508,20 @@ button:hover {
     }
 
     #message {
+        font-size: 11px;
+    }
+
+    .album-grid img {
+        height: 155px;
+        border-width: 6px;
+    }
+
+    .album-grid {
+        gap: 9px;
+    }
+
+    .album-nav button {
+        padding: 8px 12px;
         font-size: 11px;
     }
 }
@@ -308,11 +543,11 @@ button:hover {
 <div id="intro">
 
     <h1>for you again my babyy ♡</h1>
-    <p>Letter sa Chinabank babyy!</p>
+    <p>My favorite person</p>
 
     <div class="buttons">
-        <button onclick="openLetter()">Yes</button>
-        <button onclick="dontOpen()">Don't Open</button>
+        <button onclick="openLetter()">Open</button>
+        <button onclick="dontOpen()">No</button>
     </div>
 
     <div id="noMessage">
@@ -337,23 +572,73 @@ button:hover {
     </div>
 
     <div class="pictures">
-
         <img src="IMG_6492.jpeg" alt="Our first picture">
-
         <img src="IMG_6494.jpeg" alt="Our second picture">
-
     </div>
 
     <div class="picture-caption">
         US, TOGETHER AFTER SIMBA ♡
     </div>
 
-    <!-- ROMANTIC MESSAGE -->
-
     <div id="message"></div>
 
     <div class="signature">♡</div>
 
+    <div class="letter-buttons">
+        <button class="album-btn" onclick="openAlbum()">Every view is better with you in the frame.</button>
+        <button class="sons-btn" onclick="openSons()"> Family </button>
+    </div>
+
+</div>
+
+<!-- PHOTO ALBUM -->
+
+<div id="album">
+
+    <div class="album-book">
+
+        <div class="album-title">My whole world through my lens, and the two of us together ♡</div>
+
+        <div class="album-grid" id="albumGrid"></div>
+
+        <div class="album-nav">
+            <button id="prevBtn" onclick="prevPage()">‹ Back</button>
+            <button id="nextBtn" onclick="nextPage()">Next ›</button>
+        </div>
+
+    </div>
+
+    <button class="album-close" onclick="closeAlbum()">Close</button>
+
+</div>
+
+<!-- OUR SONS MODAL -->
+
+<div id="sonsModal">
+
+    <div class="sons-book">
+        <div class="sons-title album-title">Sleeping buddies♡</div>
+        
+        <div class="sons-content">
+            <img id="sonImage" src="" alt="Son photo" onclick="openFullSonPhoto()">
+            <div id="sonName" class="sons-name"></div>
+        </div>
+
+        <div class="album-nav">
+            <button id="sonPrevBtn" onclick="prevSonPage()">‹ Back</button>
+            <button id="sonNextBtn" onclick="nextSonPage()">Next ›</button>
+        </div>
+    </div>
+
+    <button class="album-close" onclick="closeSons()">Close</button>
+
+</div>
+
+<!-- FULL-SCREEN PHOTO VIEWER -->
+
+<div id="photoViewer" onclick="closePhotoViewer()">
+    <button id="closeViewer" onclick="closePhotoViewer()">×</button>
+    <img id="fullPhoto" src="" alt="Full-size photo" onclick="event.stopPropagation()">
 </div>
 
 <script>
@@ -375,7 +660,6 @@ function createHearts() {
         }
 
         heart.style.left = Math.random() * 100 + "vw";
-
         heart.style.top = "-50px";
 
         heart.style.setProperty(
@@ -410,9 +694,12 @@ createHearts();
 
 const text = `Babyy, ikaw ra ahong e marry puhon babyy and maka uban sa ahong future.
 
+
 I want us to build a beautiful life babyy, have a family, live comfortably and happily.
 
+
 Ato e reach atong dreams and goals sa life together babyy, and naa rako nimo always babyy ko.
+
 
 I lovee you very very much babyy! - gabe ♡`;
 
@@ -507,6 +794,308 @@ function goBack() {
     document.querySelector(".buttons").style.display = "flex";
 
 }
+
+/* ===== OUR SONS PHOTO VIEWER ===== */
+
+const SONS_PHOTOS = [
+    { src: "cappy.jpeg", name: "Cappy" },
+    { src: "ice.jpeg", name: "Ice" },
+    { src: "cappy ice.jpeg", name: "Cappy & Ice" }
+];
+
+let currentSonIndex = 0;
+
+function renderSonPage() {
+    const son = SONS_PHOTOS[currentSonIndex];
+    document.getElementById("sonImage").src = son.src;
+    document.getElementById("sonName").textContent = son.name;
+
+    document.getElementById("sonPrevBtn").disabled = currentSonIndex === 0;
+    document.getElementById("sonNextBtn").disabled = currentSonIndex === SONS_PHOTOS.length - 1;
+}
+
+function openSons() {
+    currentSonIndex = 0;
+    renderSonPage();
+    document.getElementById("sonsModal").classList.add("open");
+}
+
+function closeSons() {
+    document.getElementById("sonsModal").classList.remove("open");
+}
+
+function nextSonPage() {
+    if (currentSonIndex < SONS_PHOTOS.length - 1) {
+        currentSonIndex++;
+        renderSonPage();
+    }
+}
+
+function prevSonPage() {
+    if (currentSonIndex > 0) {
+        currentSonIndex--;
+        renderSonPage();
+    }
+}
+
+function openFullSonPhoto() {
+    const viewer = document.getElementById("photoViewer");
+    const fullPhoto = document.getElementById("fullPhoto");
+    fullPhoto.src = SONS_PHOTOS[currentSonIndex].src;
+    viewer.classList.add("open");
+}
+
+/* ===== PHOTO ALBUM ===== */
+
+/* All 28 picture files. Rename here if a filename differs. */
+
+const ALL_PHOTOS = [
+    "att.DHZSQPAzJRSKFiwBeaYdqJKxlxlI7PKXi-WUAL38QKM.jpeg",
+    "att.wRm2M6qyr8QzfPCxTWGgdWTdJ4Mr0UeuRGhi9QGnzIc.jpeg",
+    "IMG_1639.jpeg",
+    "IMG_2230.jpeg",
+    "IMG_2488.jpeg",
+    "IMG_2910 (1).jpeg",
+    "IMG_4434.jpeg",
+    "IMG_5744.jpeg",
+    "IMG_5755.jpeg",
+    "IMG_6393.jpeg",
+    "IMG_6407.jpeg",
+    "IMG_6582.jpeg",
+    "IMG_6723.jpeg",
+    "IMG_6778.jpeg",
+    "IMG_6958.jpeg",
+    "KAPI_SF2604131303305987809.jpeg",
+    "KAPI_SF2604201051011084813.jpeg",
+    "KAPI_SF2606301506241624964.jpeg",
+    "KAPI_SF2609011134141282701.png",
+    "KAPI_SF2609190907243449467.jpeg",
+    "KAPI_SF2609190909193141839.jpeg",
+    "KAPI_SF2609190912107602283.jpeg",
+    "KAPI_SF2609241313218566031.png",
+    "KAPI_SF2609241313218978740.jpeg",
+    "KAPI_SF2609241313219313156.jpeg",
+    "KAPI_SF2610011042472239686.jpeg",
+    "KAPI_SF2610011517055284724.jpeg",
+    "temp_image_058106E0-371C-43B6-9A9C-1CC9188C4C64.jpeg"
+];
+
+const PHOTOS_PER_PAGE = 6;
+const TOTAL_PAGES = 5;
+
+let albumPages = [];
+let currentPage = 0;
+
+function shuffle(array) {
+
+    const copy = array.slice();
+
+    for (let i = copy.length - 1; i > 0; i--) {
+
+        const j = Math.floor(Math.random() * (i + 1));
+
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+
+    return copy;
+}
+
+function buildAlbumPages() {
+
+    let pool = shuffle(ALL_PHOTOS);
+
+    while (pool.length < PHOTOS_PER_PAGE * TOTAL_PAGES) {
+
+        const extra = shuffle(ALL_PHOTOS).filter(
+            file => !pool.includes(file)
+        );
+
+        if (extra.length === 0) break;
+
+        pool = pool.concat(extra);
+    }
+
+    pool = pool.slice(0, PHOTOS_PER_PAGE * TOTAL_PAGES);
+
+    albumPages = [];
+
+    for (let p = 0; p < TOTAL_PAGES; p++) {
+
+        albumPages.push(
+            pool.slice(p * PHOTOS_PER_PAGE, (p + 1) * PHOTOS_PER_PAGE)
+        );
+    }
+
+}
+
+/* ERROR MESSAGE */
+
+function showError(msg) {
+
+    let bar = document.getElementById("errorBar");
+
+    if (!bar) {
+
+        bar = document.createElement("div");
+
+        bar.id = "errorBar";
+
+        bar.style.cssText =
+            "position:fixed;top:0;left:0;right:0;z-index:99;" +
+            "background:#c66d8d;color:#fff;font-size:12px;" +
+            "padding:10px 14px;font-family:monospace;white-space:pre-wrap;";
+
+        document.body.appendChild(bar);
+    }
+
+    bar.textContent = "Album error: " + msg;
+}
+
+/* DISPLAY ALBUM PAGE */
+
+function renderPage() {
+
+    const grid = document.getElementById("albumGrid");
+
+    if (!grid) {
+        showError("albumGrid not found in the HTML");
+        return;
+    }
+
+    grid.innerHTML = "";
+
+    albumPages[currentPage].forEach(file => {
+
+        const img = document.createElement("img");
+
+        img.src = file;
+        img.alt = "Our photo";
+        img.loading = "lazy";
+
+        img.onerror = () => {
+            img.style.opacity = "0.35";
+        };
+
+        grid.appendChild(img);
+
+    });
+
+    document.getElementById("prevBtn").disabled = currentPage === 0;
+
+    document.getElementById("nextBtn").disabled =
+        currentPage === TOTAL_PAGES - 1;
+
+}
+
+/* OPEN ALBUM */
+
+function openAlbum() {
+
+    try {
+
+        if (albumPages.length === 0) {
+            buildAlbumPages();
+        }
+
+        currentPage = 0;
+
+        renderPage();
+
+        document.getElementById("album").classList.add("open");
+
+    } catch (err) {
+
+        showError(err.message);
+
+    }
+
+}
+
+/* CLOSE ALBUM */
+
+function closeAlbum() {
+    document.getElementById("album").classList.remove("open");
+    closePhotoViewer();
+}
+
+/* OPEN PHOTO IN FULL SCREEN */
+
+const albumGrid = document.getElementById("albumGrid");
+
+albumGrid.addEventListener("click", function(e) {
+
+    if (e.target.tagName === "IMG") {
+
+        const viewer = document.getElementById("photoViewer");
+        const fullPhoto = document.getElementById("fullPhoto");
+
+        fullPhoto.src = e.target.src;
+
+        viewer.classList.add("open");
+    }
+
+});
+
+/* CLOSE FULL-SCREEN PHOTO */
+
+function closePhotoViewer() {
+    document.getElementById("photoViewer").classList.remove("open");
+}
+
+/* NEXT PAGE */
+
+function nextPage() {
+
+    if (currentPage < TOTAL_PAGES - 1) {
+
+        currentPage++;
+
+        renderPage();
+
+        document.querySelector(".album-book").scrollTop = 0;
+    }
+
+}
+
+/* PREVIOUS PAGE */
+
+function prevPage() {
+
+    if (currentPage > 0) {
+
+        currentPage--;
+
+        renderPage();
+
+        document.querySelector(".album-book").scrollTop = 0;
+    }
+
+}
+
+/* KEYBOARD CONTROLS */
+
+document.addEventListener("keydown", function (e) {
+
+    const albumOpen = document.getElementById("album").classList.contains("open");
+    const sonsOpen = document.getElementById("sonsModal").classList.contains("open");
+
+    if (albumOpen) {
+        if (e.key === "ArrowRight") nextPage();
+        if (e.key === "ArrowLeft") prevPage();
+    }
+
+    if (sonsOpen) {
+        if (e.key === "ArrowRight") nextSonPage();
+        if (e.key === "ArrowLeft") prevSonPage();
+    }
+
+    if (e.key === "Escape") {
+        closePhotoViewer();
+        closeAlbum();
+        closeSons();
+    }
+
+});
 
 </script>
 
